@@ -4,7 +4,7 @@ from ThreeSpaceAPIStreamlit import *
 from time import sleep
 import csv
 import os
-import winsound
+#import winsound
 from colorama import init, Fore, Style
 import streamlit as st
 import re
@@ -91,8 +91,8 @@ def start_recording(patient_name, date):
     st.session_state.writer_1 = csv.writer(st.session_state.csvfile_1)
     st.session_state.recording = True
 
-    winsound.Beep(400, 50)  # Beep at 400 Hz for 50 milliseconds
-    winsound.Beep(800, 70)  # Beep at 800 Hz for 70 milliseconds
+    #winsound.Beep(400, 50)  # Beep at 400 Hz for 50 milliseconds
+    #winsound.Beep(800, 70)  # Beep at 800 Hz for 70 milliseconds
 
     #st.write(Fore.CYAN + f"Recording started: Session {iteration}")
     #st.write("Recording started")
@@ -101,8 +101,8 @@ def start_recording(patient_name, date):
 
 # Function to stop recording
 def stop_recording():
-    winsound.Beep(700, 50)  # Beep at 700 Hz for 50 milliseconds
-    winsound.Beep(300, 70)  # Beep at 300 Hz for 70 milliseconds
+    #winsound.Beep(700, 50)  # Beep at 700 Hz for 50 milliseconds
+    #winsound.Beep(300, 70)  # Beep at 300 Hz for 70 milliseconds
 
     if st.session_state.csvfile_0:
         st.session_state.csvfile_0.close()
