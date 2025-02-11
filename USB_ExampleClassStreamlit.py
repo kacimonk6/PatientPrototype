@@ -1,4 +1,3 @@
-import streamlit as st
 import serial
 import serial.tools.list_ports
 
@@ -15,24 +14,22 @@ class UsbCom:
         self.timeout = timeout
     def open(self):
         if self.portName is None:
-            self.portName = input("Enter sensor COM port name (<Enter> to autodetectport):").strip()
-            #self.portName = st.text_input("Enter sensor COM port name (<Enter> to autodetectport):").strip()
-            if self.portName == "":
-                ports = serial.tools.list_ports.comports()
-                self.portName = None
-                for port in ports:
-                    # 9334 is the vendor id of 3 Space products
-                    if port.vid is not None and port.vid == 9334:
-                        self.portName = port.device
-                        print("sensor discovered on port:", self.portName)
-                        try:
-                            self.sensor = serial.Serial(self.portName, 115200, timeout=self.timeout)
-                            return
-                        except:
-                            print("Error opening port:",self.portName)
-                if self.portName == None:
-                    print("sensor not discovered.")
-                    exit(0)
+            #self.portName = input("Enter sensor COM port name (<Enter> to autodetectport):").strip()
+            ports = serial.tools.list_ports.comports()
+            self.portName = None
+            for port in ports:
+                # 9334 is the vendor id of 3 Space products
+                if port.vid is not None and port.vid == 9334:
+                    self.portName = port.device
+                    print("sensor discovered on port:", self.portName)
+                    try:
+                        self.sensor = serial.Serial(self.portName, 115200, timeout=self.timeout)
+                        return
+                    except:
+                        print("Error opening port:",self.portName)
+            if self.portName == None:
+                print("sensor not discovered.")
+                exit(0)
         self.sensor = serial.Serial(self.portName, 115200, timeout=self.timeout)
         self.read(self.sensor.in_waiting)
 
@@ -44,4 +41,6 @@ class UsbCom:
 
     def read(self, numToRead):
         return self.sensor.read(numToRead)
+
+
 
